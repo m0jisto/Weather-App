@@ -8,8 +8,6 @@ export default class weatherService {
      
     async getWeather (city) {
         let weather = await this.getResource(city)
-        console.log(weather)
-        console.log(this._transform(weather))
         return this._transform(weather)
     }
 

@@ -3,12 +3,9 @@ import React, {Component} from 'react';
 import './searchCity.sass'
 
 export default class SearchCity extends Component {
-    constructor (props) {
-        super(props)
-        this.state = {
+    state = {
             text: ''
         }
-    }
 
     onSubmit = (e) => {
         e.preventDefault()
