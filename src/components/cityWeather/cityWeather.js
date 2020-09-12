@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import weatherService from'../../service/weatherService';
+import { connect } from 'react-redux';
+import weatherService from'../../services/weatherService';
 import Spinner from '../spinner/'
 
 import './cityWeather.sass'
 import arrow from './arrow.png'
 
-export default class CityWeather extends Component {
+class CityWeather extends Component {
     state = {
         weather: null,
         loading: false
@@ -26,7 +27,7 @@ export default class CityWeather extends Component {
                     weather: undefined,
                     loading: false
                 }))
-        }
+        } 
     }
 
     render () {
@@ -91,3 +92,11 @@ export default class CityWeather extends Component {
         )
     }
 }
+
+function mapStateToProps (state) {
+    return {
+        city: state.city
+    } 
+  }
+  
+export default connect(mapStateToProps)(CityWeather)

@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { changeNameCity } from '../../actions/'
 
 import './searchCity.sass'
 
-export default class SearchCity extends Component {
+class SearchCity extends Component {
     state = {
-            text: ''
-        }
+        text: ''
+    }
 
     onSubmit = (e) => {
         e.preventDefault()
-        this.props.onAdd(this.state.text)
+        this.props.changeNameCity('city', this.state.text)
         this.setState({
             text: ''
         })
@@ -24,8 +26,8 @@ export default class SearchCity extends Component {
                     className="form__input"
                     type="text"
                     placeholder="Введите название города"
-                    onChange={(e) => this.setState({text: e.target.value})}
-                    value={this.state.text}/>
+                    value={this.state.text}
+                    onChange={(e) => this.setState({text: e.target.value})}/>
                 <button
                     className="form__btn"
                     type="submit">Найти</button>
@@ -33,3 +35,19 @@ export default class SearchCity extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        params: state
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        changeNameCity: (key, value) => {
+            dispatch(changeNameCity(key, value))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchCity);

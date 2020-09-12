@@ -1,27 +1,23 @@
-import React, {Component} from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
+import store from '../../store';
 
 import SearchCity from '../searchCity/'
 import CityWeather from '../cityWeather/'
 
 import './app.sass';
 
-export default class App extends Component {
-    state = {
-        city: null
-    }
-
-    onAdd = (text) => {
-        this.setState({city: text})
-    }
-
-    render () {
-        return (
-            <div className="app">
-                <div className="wrapper">
-                    <SearchCity onAdd={this.onAdd}/>
-                    <CityWeather city={this.state.city}/>
-                </div>
+const App = () => {
+    return (
+        <div className="app">
+            <div className="wrapper">
+                <Provider store={store}>
+                    <SearchCity/>
+                    <CityWeather/>
+                </Provider>
             </div>
-        )
-    }
+        </div>
+    )
 }
+
+export default App;
