@@ -97,6 +97,6 @@ function mapStateToProps (state) {
     return {
         city: state.city
     } 
-  }
+}
   
 export default connect(mapStateToProps)(CityWeather)
