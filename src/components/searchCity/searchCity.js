@@ -36,11 +36,7 @@ class SearchCity extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        params: state
-    }
-}
+const mapStateToProps = (state) => state
 
 const mapDispatchToProps = (dispatch) => {
     return {
