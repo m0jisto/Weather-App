@@ -11,7 +11,7 @@ const CityWeather = ({city}) => {
     [loading, updateLoading]= useState(false);
 
     useEffect(() => {
-        if (city !== '') {
+        if (city !== null) {
             updateLoading(true)
 
             const service = new weatherService ()
@@ -28,12 +28,12 @@ const CityWeather = ({city}) => {
         }
     }, [city])
 
-    if (!weather) {
-        return <div></div>
-    }
-
     if (loading) {
         return <Spinner />
+    }
+
+    if (!weather) {
+        return <div></div>
     }
 
     if (weather === 'error') {

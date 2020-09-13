@@ -1,5 +1,5 @@
 const initialState = {
-    city: ''
+    city: null
 }
 
 const reducer = (state = initialState, action) => {
