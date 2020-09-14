@@ -2,16 +2,16 @@ import React, { useContext } from 'react';
 import WeatherService from '../../services/weatherService';
 import Spinner from '../spinner'
 
-import { NameCityContext } from '../app/'
+import { ContextApp } from '../app/'
 
 import './cityWeather.sass'
 import arrow from './arrow.png'
 
 const CityWeather = () => {
-    const city = useContext(NameCityContext),
-    service = new WeatherService(),
+    const { state } = useContext(ContextApp),
+        service = new WeatherService(),
 
-    { weather, loading } = service.useCityWeather(city)
+        { weather, loading } = service.useCityWeather(state.city)
 
     if (loading) {
         return <Spinner />
@@ -29,10 +29,10 @@ const CityWeather = () => {
     let minutes = new Date().getMinutes().toString();
 
     const hours = new Date().getHours().toString(),
-    month = new Date().getMonth().toString(),
-    date = new Date().getDate().toString(),
-    year = new Date().getFullYear().toString(),
-    months = ['Jan', 'Feb', 'Mar, Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        month = new Date().getMonth().toString(),
+        date = new Date().getDate().toString(),
+        year = new Date().getFullYear().toString(),
+        months = ['Jan', 'Feb', 'Mar, Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     if (+minutes < 10) {
         minutes = '0' + minutes
