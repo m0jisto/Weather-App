@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { changeNameCity } from '../../actions/'
 
 import './searchCity.sass'
 
-const SearchCity = ({changeNameCity}) => {
+const SearchCity = ({updateCity}) => {
     const [text, onChangeText] = useState('');
 
     const onSubmit = (e) => {
         e.preventDefault()
-        changeNameCity('city', text)
+        updateCity(text)
         onChangeText('')
     }
 
     return ( 
         <form 
             className="form"
-            onSubmit={onSubmit}
-            >
+            onSubmit={onSubmit}>
             <input
                 className="form__input"
                 type="text"
@@ -31,12 +28,4 @@ const SearchCity = ({changeNameCity}) => {
     )
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        changeNameCity: (key, value) => {
-            dispatch(changeNameCity(key, value))
-        }
-    }
-}
-
-export default connect(state => state, mapDispatchToProps)(SearchCity);
+export default SearchCity

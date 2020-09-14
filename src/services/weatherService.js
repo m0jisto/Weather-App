@@ -1,12 +1,9 @@
 import axios from 'axios'
+import { useState, useEffect } from 'react'
 
-export default class weatherService {
+export default class WeatherService {
 
-    async getWeather (city, key = '3991c74047383806675283918b51ff42') {
-        return await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${key}`)
-    }
-
-    _transform(city) {
+    _transform = (city) => {
         return {
             name: city.name || '-',
             country: city.sys.country,
@@ -20,5 +17,32 @@ export default class weatherService {
             visibility: +city.visibility / 1000
         }
     }
+
+    useCityWeather = (city) => {
+        const [weather, updateWeather] = useState(null),
+        [loading, updateLoading]= useState(false);
+
+        useEffect(() => {
+            if (city !== null) {
+                updateLoading(true)
+                
+                axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=3991c74047383806675283918b51ff42`)
+                    .then(weather => {
+                        updateWeather(this._transform(weather.data))
+                        updateLoading(false)
+                    })
+                    .catch(() => {
+                        updateWeather('error');
+                        updateLoading(false)
+                    })
+            }
+        }, [city])
+
+        return {
+            weather,
+            loading
+        }
+    }
+
 }
 

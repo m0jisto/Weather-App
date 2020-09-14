@@ -1,2 +1,4 @@
 import App from './app'
-export default App
+import { NameCityContext } from './app'
+export default App;
+export { NameCityContext }
