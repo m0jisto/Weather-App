@@ -1,76 +1,115 @@
 import React, { useContext } from 'react';
-import WeatherService from '../../services/weatherService';
-import Spinner from '../spinner'
+import useCityWeather from '../../services/WeatherService';
+import Spinner from '../spinner';
 
-import { ContextApp } from '../app/'
+import { ContextApp } from '../app';
 
-import './cityWeather.sass'
-import arrow from './arrow.png'
+import './cityWeather.sass';
+import arrow from './arrow.png';
 
 const CityWeather = () => {
-    const { state } = useContext(ContextApp),
-        service = new WeatherService(),
+	const { state } = useContext(ContextApp);
 
-        { weather, loading } = service.useCityWeather(state.city)
+	const { weather, loading } = useCityWeather(state.city);
 
-    if (loading) {
-        return <Spinner />
-    }
+	if (loading) {
+		return <Spinner />;
+	}
 
-    if (!weather) {
-        return <div></div>
-    }
+	if (!weather) {
+		return <></>;
+	}
 
-    if (weather === 'error') {
-        return <h2 className="weather__error">Введите корректное название города</h2>
-    }
+	if (weather === 'error') {
+		return <h2 className="weather__error">Введите корректное название города</h2>;
+	}
 
+	let minutes = new Date().getMinutes().toString();
 
-    let minutes = new Date().getMinutes().toString();
+	const hours = new Date().getHours().toString();
+	const month = new Date().getMonth().toString();
+	const date = new Date().getDate().toString();
+	const year = new Date().getFullYear().toString();
+	const months = ['Jan', 'Feb', 'Mar, Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    const hours = new Date().getHours().toString(),
-        month = new Date().getMonth().toString(),
-        date = new Date().getDate().toString(),
-        year = new Date().getFullYear().toString(),
-        months = ['Jan', 'Feb', 'Mar, Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+	if (+minutes < 10) {
+		minutes = `0${minutes}`;
+	}
 
-    if (+minutes < 10) {
-        minutes = '0' + minutes
-    }
+	const {
+		name, country, description, temp, wind, deg, feelTemp, humidity, pressure, visibility,
+	} = weather;
 
-    let { name, country, description, temp, wind, deg, feelTemp, humidity, pressure, visibility } = weather
+	const src = `./icon/${description}.png`;
+	const styled = {
+		width: '15px',
+		height: '15px',
+		marginLeft: '5px',
+		transform: `rotate(${deg}deg)`,
+	};
 
-    const src = `./icon/${description}.png`,
-        styled = {
-            width: '15px',
-            height: '15px',
-            marginLeft: '5px',
-            transform: `rotate(${deg}deg)`
-        }
+	return (
+		<div className="weather">
+			<div className="weather__header">
+				<div>
+					<div className="weather__date">
+						{hours}
+						:
+						{minutes}
+						,
+						{months[month - 1]}
+						{date}
+						{year}
+					</div>
+					<div className="weather__city">
+						{name}
+						,
+						{country}
+					</div>
+				</div>
 
-    description = description[0].toUpperCase() + description.slice(1)
+				<div className="weather__right">
+					<img src={src} alt="" />
+					<div className="weather__temp">
+						{temp}
+						°C
+					</div>
+				</div>
+			</div>
 
-    return (
-        <div className="weather">
-            <div className="weather__header">
-                <div>
-                    <div className="weather__date">{hours}:{minutes}, {months[month - 1]} {date} {year}</div>
-                    <div className="weather__city">{name}, {country}</div>
-                </div>
+			<div className="weather__wind">
+				Wind
+				:
+				{wind}
+				m/s
+				<img style={styled} src={arrow} alt="" />
+			</div>
+			<div className="weather__value">
+				Feels like
+				{feelTemp}
+				°C.
+				{`${description[0].toUpperCase()}${description.slice(1)}`}
+			</div>
+			<div className="weather__value">
+				Humidity
+				:
+				{humidity}
+				%
+			</div>
+			<div className="weather__value">
+				Pressure
+				:
+				{pressure}
+				hPa
+			</div>
+			<div className="weather__value">
+				Visibility
+				:
+				{visibility}
+				.0km
+			</div>
+		</div>
+	);
+};
 
-                <div className="weather__right">
-                    <img src={src} alt='' />
-                    <div className="weather__temp">{temp}°C</div>
-                </div>
-            </div>
-
-            <div className="weather__wind">Wind: {wind}m/s <img style={styled} src={arrow} alt='' /></div>
-            <div className="weather__value">Feels like {feelTemp}°C. {description}</div>
-            <div className="weather__value">Humidity: {humidity}%</div>
-            <div className="weather__value">Pressure: {pressure}hPa</div>
-            <div className="weather__value">Visibility: {visibility}.0km</div>
-        </div>
-    )
-}
-
-export default CityWeather
+export default CityWeather;

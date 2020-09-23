@@ -1,2 +1,3 @@
-import CityWeather from './cityWeather'
-export default CityWeather
+import CityWeather from './CityWeather';
+
+export default CityWeather;

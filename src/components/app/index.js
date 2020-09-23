@@ -1,4 +1,3 @@
-import App from './app'
-import { ContextApp } from './app'
-export default App;
-export { ContextApp }
+import { ContextApp, App } from './App';
+
+export { ContextApp, App };

@@ -1,0 +1,23 @@
+{
+		"env": {
+				"browser": true,
+				"commonjs": true,
+				"es6": true,
+				"node": true
+			},
+		"parser": "babel-eslint",
+		"extends": ["airbnb", "airbnb/hooks"],
+		"parserOptions": {
+				"ecmaFeatures": {
+					"jsx": true
+				},
+				"ecmaVersion": 11
+		},
+		"rules": {
+				"import/no-cycle": [2, { "maxDepth": 1 }],
+				"max-len": ["error", { "code": 200 }],
+				"indent": [2, "tab", {"SwitchCase": 1}],
+				"react/jsx-indent": [2, "tab"],
+				"no-tabs": 0
+		}
+}

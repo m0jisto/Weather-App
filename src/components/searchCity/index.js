@@ -1,3 +1,3 @@
-import SearchCity from './searchCity'
+import SearchCity from './SearchCity';
 
-export default SearchCity
+export default SearchCity;
